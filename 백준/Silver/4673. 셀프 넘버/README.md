@@ -34,3 +34,131 @@
 
  <p>10,000보다 작거나 같은 셀프 넘버를 한 줄에 하나씩 증가하는 순서로 출력한다.</p>
 
+## 📖[Python/파이썬] [🥈5] 백준 알고리즘 4673 - 셀프넘버
+### 📜문제
+![](https://velog.velcdn.com/images/keynene/post/956bffaf-9cf0-4afc-b2c5-705158b12540/image.png)
+![](https://velog.velcdn.com/images/keynene/post/a45ad355-6fd5-4d1f-b8e6-48e29d2fa7ee/image.png)
+* * *
+### 📕풀이방향
+1~10000까지 반복문 돌리면서 d(n)함수로 생성자를 가진 셀프넘버가 아닌 수를 만들어 <span style='color:red'>집합</span>에 넣고,
+다시 1~10000까지 반복문 돌리면서 셀프넘버가 아닌 수들의 집합에 없는 수만 출력해보자
+(그 집합에 없어야 문제에서 요구하는 "셀프넘버"니까)
+#### 👉🏻[브루트포스 알고리즘] : 문제에서 제시된 경우의 수를 모두 검색/파악하는 알고리즘
+
+<<<아래 블로그를 참고하여 구현했습니다 (map/str함수 사용법을 참고)>>>
+https://kbwplace.tistory.com/69
+* * *
+
+### 📝알고리즘 구현순서
+1. d(n)함수 만들기 : 생성자를 가진 <span style='color:red'>셀프넘버가 아닌 수 (nonSelfNum)</span>를 만들기 위함
+2. nonSelfNum <span style='color:red'>*집합(set())</span> 만들기
+3. 1~10000까지 i 반복문을 돌리면서 d(i)를 호출해 nonSelfNum 집합에 생성자들을 저장
+4. 다시 1~10000까지 j 반복문을 돌리면서 j가 nonSelfNum에 포함되어잇는지 확인하면서,
+   <span style='color:red'>미포함</span>되어있는 j만을 출력 (nonSelfNum에 미포함 <span style='color:green'>==</span> SelfNum, 셀프넘버)
+```
+※ 집합(set())은 저장되는 값들의 중복을 제거해주며, 교집합(&), 합집합(|),차집합(-) 등 구현이 가능함
+   일반적으로 알고리즘을 구현할 때, 중복제거용으로 자주 쓰이고,
+   비교할 값이 해당 집합에 포함되어있는지 확인하는 용도로도 자주 쓰임
+```
+* * *
+### 💻결과코드
+```python
+#생성자 만드는 함수 d(n)
+def d(n):
+    n = n + sum(map(int,str(n)))
+    return n
+
+#셀프넘버가 아닌 수들(생성자가 있는 수들)이 들어갈 집합
+nonSelfNum = set();
+
+#nonSelfNum 집합에 들어갈 수들 넣기 (1~10000)
+for i in range(1,10001):
+    nonSelfNum.add(d(i)) #1 부터 10000까지 d함수에 들어간 생성자들 넣음 (set이므로 중복제거됨)
+
+#셀프넘버 출력하기
+for j in range(1,10001):
+    if j not in nonSelfNum:  
+    #1부터 10000까지 숫자 중 nonSelfNum에 저장된 생성자가 있는 수들을 제외하고 출력함
+        print(j)
+```
+
+* * *
+#### ✏️1. d(n)함수 만들기
+```python
+#str()으로 n을 문자열(str)로 전환하고, 
+#map()으로 객체로 분리하여 정수형(int)으로 변경하여,
+#sum()으로 더해줌
+
+def d(n):
+    n = n + sum(map(int,str(n)))
+    return n
+```
+```
+  ex) d(123)을 한 결과
+  👉🏻 str(123)을 통해 '123'이 되고, map으로 int형으로 객체화하여 저장, sum으로 각 자릿수 더해줌
+```
+
+* * *
+#### ✏️2. nonSelfNum 저장할 집합 만들기 (set)
+```python
+nonSelfNum = set();
+#set()를 이용하면 비어있는 집합을 생성할 수 있음 (집합정의)
+```
+* * *
+#### ✏️3. 1~10000까지 i로 d(i)를 호출하여 nonSelfNum을 집합에 저장
+```python
+#만들어둔 집합(nonSelfNum)에 생성자 넣기
+for i in range(1,10001):
+    nonSelfNum.add(d(i)) 
+    #1 부터 10000까지 d함수에 들어간 생성자들 넣음 (set이므로 중복제거됨)
+```
+```
+  집합(set)에 값을 넣을 때 .add()함수 사용
+  집합(set)에 보유/추가된 값은 자동적으로 중복제거됨
+```
+* * *
+#### ✏️4. 1~10000까지 j로 nonSelfNum에 포함여부 검색하여 미포함시 출력
+```python
+for j in range(1,10001):
+    if j not in nonSelfNum: 
+        print(j)
+```
+```
+  in set / not in set 으로 집합에 해당 값의 포함여부를 확인할 수 있음
+  위 예제에서는 nonSelfNum에 포함되지 않은 수가 SelfNum 이므로,
+  j not in nonSelfNum를 이용하여 미포함된 j값만을 출력하였음 (여집합검색)
+```
+* * *
+### 📚기존 내 알고리즘의 오류와 비효율적인 이유 정리
+#### ※ 내가 처음 구현한 d(n) 함수
+```자릿수대로 케이스를 나눠서 각자릿수와 n을 더해줌```
+```python
+def d(n):
+    m = 0;
+    if n < 10 :
+        m = n+n;
+    elif n < 100 :
+        m = n + n//10 + (n-(n//10*10));
+    elif n < 1000 :
+        m = n + n//100 + ((n-n//100*100)//10) + (n-(n//10*10));
+    elif n < 10000 :
+        m = n + (n//1000) + ((n-n//1000*1000)//100) + ((n-(n//100*100))//10) + (n-(n//10*10));
+    return m
+```
+```
+❌ 자릿수마다 케이스가 다르므로 불필요하게 코드가 길어짐🤦🏻‍♀️
+    분명 위 코드 길이를 줄일만한 내장함수가 있을 것이라고 판단함
+    다른 유저/블로거들의 검색/열람해본 결과, 
+    "map()"과 "str()"로도 충분히 구현할 수 있다는 것을 알게됨
+```
+
+* * *
+
+1. 문제에 제시된 모든 케이스의 경우의 수를 구현해야하면 <span style="font-weight:bold">브루트포스 알고리즘</span>을 이용
+    (가장 정확하며 무식한 알고리즘, 대신 상대적으로 구현시간이 많이 걸림)
+2. <span style="font-weight:bold">중복제거/포함여부</span> 등의 케이스가 필요한 경우 <code>set()</code>을 이용하자
+    (교집합/여집합/합집합/차집합 등은 덤)
+3. <span style="font-weight:bold">자릿수를 분리</span>가 필요한 경우 <code>str()</code>과 <code>map()</code>을 이용하자
+    (백준에서 몇 번 나왔는데 이건 할 때마다 자릿수마다 케이스 나누는 알고리즘으로 하고있음🤦🏻‍♀️
+      발전이 없으면 외우도록 하자)
+4. 코드 길게 구현하다가 쎄하다면 고집부리지 말고 검색을 하자....

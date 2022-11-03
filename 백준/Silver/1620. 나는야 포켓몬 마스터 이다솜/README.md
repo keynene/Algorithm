@@ -132,3 +132,110 @@
 
 <p>이게 오박사님이 나에게 새로 주시려고 하는 도감이야. 너무 가지고 싶다ㅠㅜ. 꼭 만점을 받아줬으면 좋겠어!! 파이팅!!!</p>
 
+## 📖[Python/파이썬] [🥈4] 백준 알고리즘 1620 <br>- 나는야 포켓몬 마스터 이다솜
+### 📜문제
+...(포켓몬 가지고 치고박고 싸우는 건)중략...
+![](https://velog.velcdn.com/images/keynene/post/ee895dae-f511-4534-84e5-fbf697d54c88/image.png)
+![](https://velog.velcdn.com/images/keynene/post/ea854094-975c-4fe0-b303-9f594114a67a/image.png)
+![](https://velog.velcdn.com/images/keynene/post/a1b2f70d-2f8c-4f7b-8eb4-e93ee0181169/image.png)
+
+* * *
+
+### 📕풀이방향
+N,M을 입력받고 pok_name, pok_num을 딕셔너리(dictionary)로 선언하자
+pok_name은 이름을 가져올 수 있게, pok_num은 순서값을 가져올 수 있게 저장하자
+M크기만큼 리스트 test에 입력값을 저장하고 test의 모든요소를 탐색하여
+문자는 순서를, 순서는 문자를 출력하자
+
+* * *
+
+### 📝알고리즘 구현순서
+1. N, M, pok_name, pok_num 정의하여 pok_name과 pok_num에 입력값을 dictionary 형태로 저장하자
+```
+/*저장되는 방법*/
+pok_name = {1: 'Bulbasaur', 2: 'Ivysaur', ...}  key : 순서 (이름을 가져오기 위함)
+pok_num =  {'Bulbasaur': 1, 'Ivysaur': 2, ...}  key : 이름 (순서를 가져오기 위함)
+#딕셔너리는 key값을 탐색하여 value를 반환하기 때문에 2가지 케이스로 저장했음
+```
+2. test에 리스트로 입력값을 받아 요소를 순서대로 검색하면서 숫자인지 확인하고,
+   문자 → 숫자(pok_num), 숫자 → 문자(pok_name)로 결과값을 출력하자
+
+* * *
+
+### 💻결과코드
+```python
+import sys
+input = sys.stdin.readline
+
+n,m = map(int, input().split())
+pok_name = {}
+pok_num = {}
+
+for i in range(1,n+1):
+	#1~N까지 입력값 받기
+    name = input().rstrip()
+    pok_name[i] = name  
+    pok_num[name] = i   
+
+#testcase 탐색하면서 숫자→문자 / 문자→숫자를 반환
+test = [input().rstrip() for _ in range(m)]
+for i in test:
+    if i.isdigit():
+        print(pok_name[int(i)])
+    else:
+        print(pok_num[i])
+```
+
+* * *
+
+#### ✏️1. N, M 저장하고 pok_name, pok_num을 딕셔너리로 저장
+```python
+import sys
+input = sys.stdin.readline
+
+n,m = map(int, input().split())
+pok_name = {}
+pok_num = {}
+
+for i in range(1,n+1):
+    name = input().rstrip()
+    pok_name[i] = name
+    pok_num[name] = i
+```
+```python
+    ※2가지 케이스를 다르게 저장하는 이유?
+    입력값이 숫자(순서)라면 포켓몬의 이름을 반환, pok_name을 사용
+    ##pok_name = {1: 'Bulbasaur', 2: 'Ivysaur', ...}
+    입력값이 문자(이름)라면 포켓몬의 순서를 반환, pok_num을 사용
+    ##pok_num = {'Bulbasaur': 1, 'Ivysaur': 2, ...}
+```
+
+* * *
+
+#### ✏️2. 비교값(test)이 숫자인지(.isdigit())확인하여 결과값 출력
+```python
+test = [input().rstrip() for _ in range(m)]
+for i in test:
+    if i.isdigit(): #숫자라면 name을 반환
+        print(pok_name[int(i)])
+    else:  #숫자가 아니라면 num을 반환
+        print(pok_num[i])
+```
+
+* * *
+
+### 📚초기 알고리즘 오류와 정리
+※초기 알고리즘
+```
+pok = {} 으로 {name:num, name:num ...}저장 후 
+비교값으로 name이 들어오면 num으로, num이 들어오면 name으로 반환하려고 했으나,
+딕셔너리를 2가지 경우로 저장해서 비교하면 더 간단한 것이라고 판단함
+```
+* * *
+1. 비교값이 n인경우 m을, m인경우 n을 출력하는 케이스는 딕셔너리를 2가지로 나누면 편함
+2. <code>str() == true</code>뿐 아니라 <code>.isdigit()</code>이라는 훌륭한 내장함수가 있다는 것을 깨달음
+<code>.isdigit()</code>같은 내장함수의 종류는 아래 링크 참고! 정리가 잘 되어있음
+[code_angler님 포스팅 (파이썬(Python) 문자/숫자인지 확인하기[isalpha, isdigit, isalnum])](https://velog.io/@code_angler/%ED%8C%8C%EC%9D%B4%EC%8D%ACPython-%EB%AC%B8%EC%9E%90%EC%88%AB%EC%9E%90%EC%9D%B8%EC%A7%80-%ED%99%95%EC%9D%B8%ED%95%98%EA%B8%B0isalpha-isdigit-isalnum)
+
+
+
