@@ -1,29 +1,24 @@
 def dfs(n):
     global ans
-    if n == N:
+    if n == cnt:
         ans = max(ans, int("".join(map(str,arr))))
         return
     
     for i in range(L-1):
         for j in range(i+1,L):
             arr[i], arr[j] = arr[j], arr[i]
-
             chk = int("".join(map(str,arr)))
-            if (n, chk) not in V:
+            if (n,chk) not in v and arr[0] != 0:
+                v.append((n, chk))
                 dfs(n+1)
-                V.append((n,chk))
-
             arr[i], arr[j] = arr[j], arr[i]
 
 for t in range(int(input())):
-    Num, N = map(str,input().split())
-    N = int(N)
-    arr = []
-    V = []
-    for i in Num:
-        arr.append(int(i))
-    L = len(arr)
+    Num, cnt = map(int,input().split())
+    arr = list(map(int, str(Num)))
     ans = 0
+    L = len(arr)
+    v = []
 
     dfs(0)
 
