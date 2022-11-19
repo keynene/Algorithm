@@ -26,5 +26,9 @@ for t in range(int(input())):
         for x in range(N):
             if arr[y][x] == 'o':
                 dfs(x,y)
+            if ans == 'YES':
+                break
+        if ans == 'YES':
+            break
 
     print(f'#{t+1} {ans}')
