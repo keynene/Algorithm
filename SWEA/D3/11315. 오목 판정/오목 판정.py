@@ -7,12 +7,10 @@ def dfs(x,y):
         nx = x
         ny = y
         cnt = 0
-
-        while 0<=nx<N and 0<=ny<N and arr[ny][nx] == 'o':
+        while 0<=nx<N and 0<=ny<N and arr[ny][nx]=='o':
             cnt += 1
             nx += dx[i]
             ny += dy[i]
-        
         if cnt >= 5:
             ans = 'YES'
             return
@@ -26,9 +24,5 @@ for t in range(int(input())):
         for x in range(N):
             if arr[y][x] == 'o':
                 dfs(x,y)
-            if ans == 'YES':
-                break
-        if ans == 'YES':
-            break
 
     print(f'#{t+1} {ans}')
