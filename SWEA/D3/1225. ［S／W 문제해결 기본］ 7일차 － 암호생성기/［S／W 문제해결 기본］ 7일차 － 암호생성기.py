@@ -1,26 +1,24 @@
-from collections import deque
-
-for _ in range(10):
+for _ in range(1,11):
     t = int(input())
     arr = list(map(int, input().split()))
-    queue = deque()
-    queue.append(arr)
-    cnt = 1
+    cnt = 0
+    i = 0
 
-    while queue:
-        if cnt > 5:
-            cnt = 1
-
-        arr2 = queue.popleft()
-        temp = arr2[0]-cnt
-        del arr2[0]
+    while cnt <= 0:
+        i += 1
+        temp = arr[0] - i
+        del arr[0]
 
         if temp <= 0:
-            arr2.append(0)
-            print("#",t,sep="",end = " ")
-            print(*arr2,sep=" ")
+            temp = 0
+            cnt += 1
+            arr.append(temp)
             break
         else:
-            arr2.append(temp)
-            queue.append(arr2)
-            cnt += 1
+            arr.append(temp)
+
+        if i == 5:
+            i = 0
+
+    print("#",t,sep="",end=" ")
+    print(*arr,sep=" ")
