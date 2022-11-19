@@ -1,5 +1,5 @@
 dx = [1,0]
-dy = [0,-1]
+dy = [0,1]
 
 def check(x,y):
     global ans
@@ -7,9 +7,8 @@ def check(x,y):
         nx = x
         ny = y
         cnt = 0
-
         while 0<=nx<N and 0<=ny<N:
-            if arr[ny][nx] == 'O':
+            if chess[ny][nx] == 'O':
                 cnt += 1
             nx += dx[i]
             ny += dy[i]
@@ -17,20 +16,19 @@ def check(x,y):
             ans = 'no'
             return
 
-
 for t in range(int(input())):
     N = 8
-    arr = [list(map(str,input())) for _ in range(N)]
+    chess = [list(map(str, input())) for _ in range(N)]
     ans = 'yes'
     lcnt = 0
 
     for y in range(N):
         for x in range(N):
-            if arr[y][x] == 'O':
+            if chess[y][x] == 'O':
                 check(x,y)
                 lcnt += 1
     
     if lcnt != 8:
         ans = 'no'
-    
+
     print(f'#{t+1} {ans}')
