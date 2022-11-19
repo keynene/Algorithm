@@ -1,15 +1,22 @@
+def find(x,y):
+    global ans
+    ny = y
+    while 0<=ny<N:
+        if arr[ny][x] == 2:
+            ans += 1
+            break
+        elif arr[ny][x] == 1:
+            break
+        else: ny += 1
+
 for t in range(1,11):
     N = int(input())
     arr = [list(map(int, input().split())) for _ in range(N)]
-    arr_t = list(zip(*arr))
-    
     ans = 0
-    for lst in arr_t:
-        prev = 0
-        for n in lst:
-            if n:
-                if n == 2 and prev == 1:
-                    ans += 1
-                prev = n
-    
+
+    for y in range(N):
+        for x in range(N):
+            if arr[y][x] == 1:
+                find(x,y+1)
+
     print(f'#{t} {ans}')
