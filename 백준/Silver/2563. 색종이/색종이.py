@@ -9,7 +9,6 @@ node = []
 for _ in range(int(input().rstrip())):
     x,y = map(int, input().split())
     for i in range(y,y+10):
-        for j in range(x,x+10):
-            graph[i][j] = 1
+        graph[i][x:x+10] = [1]*10
 
 print(sum(map(sum,graph)))
