@@ -14,10 +14,4 @@ for T in range(1,11):
       arr.insert(comlst[0]+temp,comlst[j])
       temp += 1
 
-  ans = ''
-
-  for i in range(0,10):
-    ans += str(arr[i])
-    ans += ' '
-
-  print('#{} {}'.format(T,ans))
+  print('#{} {} {} {} {} {} {} {} {} {} {}'.format(T,*arr))
