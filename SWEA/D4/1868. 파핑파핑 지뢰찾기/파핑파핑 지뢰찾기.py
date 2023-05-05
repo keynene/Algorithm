@@ -3,9 +3,6 @@ from collections import deque
 dx = [1,1,0,-1,-1,-1,0,1]
 dy = [0,1,1,1,0,-1,-1,-1]
 
-bx = [-1,1,0,0]
-by = [0,0,-1,1]
-
 def numbering(x,y):
   cnt = 0
   for i in range(8):
