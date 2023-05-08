@@ -3,16 +3,15 @@ from copy import deepcopy
 
 dx = [-1,1]
 
-def bfs(x,y,ladder):
+def bfs(x,y):
   global res, ans
   queue = deque()
-  queue.append((x,y,deepcopy(ladder),0))
+  queue.append((x,y,0))
   answer = x
 
   while queue:
-    x,y,l,d = queue.popleft()
+    x,y,d = queue.popleft()
     isChange = False
-    l[y][x] = 0
 
     if y == 99:
       if res == 0 or res > d:
@@ -24,18 +23,16 @@ def bfs(x,y,ladder):
       cnt = 0
       nx = x+dx[i]
 
-      if 0<=nx<100 and l[y][nx] == 1:
-        while 0<=nx<100 and l[y][nx] > 0 :
-          l[y][nx] = 0
+      if 0<=nx<100 and ladder[y][nx] == 1:
+        while 0<=nx<100 and ladder[y][nx] > 0 :
           nx += dx[i]
           cnt += 1
         nx -= dx[i]
-        l[y][nx] = 0
-        queue.append((nx,y+1,l,d+cnt+1))
+        queue.append((nx,y+1,d+cnt+1))
         isChange = True
 
     if not isChange:  
-      queue.append((x,y+1,l,d+1))
+      queue.append((x,y+1,d+1))
 
 
 for T in range(1,11):
@@ -48,6 +45,6 @@ for T in range(1,11):
   for y in range(1):
     for x in range(100):
       if ladder[y][x] == 1:
-        bfs(x,y,ladder)
+        bfs(x,y)
   
   print('#{} {}'.format(T,ans))
