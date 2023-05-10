@@ -1,17 +1,6 @@
 dx = [1,1,0,-1,-1,-1,0,1]
 dy = [0,1,1,1,0,-1,-1,-1]
 
-# def dfs(x,y,mode,dep):
-#   if 0<=x<N and 0<=y<N and graph[y][x] == mode and dep>0:
-#     return True
-  
-#   for i in range(8):
-#     nx = x+dx[i]
-#     ny = y+dy[i]
-
-#     if dfs(nx,ny,mode,dep+1):
-#       graph[y][x] = mode
-
 for T in range(1,int(input())+1):
   N, M = map(int, input().split())
   graph = [[0]*(N) for _ in range(N)]
@@ -36,6 +25,7 @@ for T in range(1,int(input())+1):
           nx += dx[i]
           ny += dy[i]
           d += 1
+          
           if 0<=nx<N and 0<=ny<N:
             if graph[ny][nx] == mode:
               while d:
