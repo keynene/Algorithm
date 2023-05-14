@@ -11,6 +11,5 @@ for T in range(1,int(input())+1):
 
   print(f'#{T} ',end="")
   for ans in answer:
-    for wd in ans:
-      print(wd,end="")
+    print(*ans,end="",sep="")
   print()
