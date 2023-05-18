@@ -1,25 +1,26 @@
 from collections import deque
-from copy import deepcopy
 
-def dfs(c, v):
-  global cnt
-  cnt = max(cnt, len(v))
+def dfs(i,v):
+  global ans
+  ans = max(ans, len(v))
 
-  for n in graph[c]:
-    if n not in v:
-      dfs(n, v+[n])
+  for s, e in edge:
+    if i == s and e not in v:
+      dfs(e,v+[e])
+  
 
-for T in range(1,int(input())+1):
-  N, M = map(int, input().split())
-  graph = [[] for _ in range(N+1)]
-  cnt = 0
+for T in range(int(input())):
+  N,M = map(int, input().split())
+  edge = [list(map(int, input().split())) for _ in range(M)]
+  v = []
+  ans = 0
 
-  for _ in range(M):
-    u, v = map(int, input().split())
-    graph[u].append(v)
-    graph[v].append(u)
+  for x,y in edge:
+    if [y,x] not in edge:
+      edge.append([y,x])
+  edge.sort()
 
-  for s in range(1,N+1):
-    dfs(s, [s])
+  for i in range(1,N+1):
+    dfs(i,v+[i])
 
-  print(f'#{T} {cnt}')
+  print(f'#{T+1} {ans}')
