@@ -1,28 +1,31 @@
-def check(x,y):
-    global ans
-    for i in range(x+1,N):
-        if chess[y][i] == 'O':
-            ans = 'no'
-            return
-    
-    for j in range(y+1,N):
-        if chess[j][x] == 'O':
-            ans = 'no'
-            return
+dx = [1,0,-1]
+dy = [0,-1,0]
 
-for t in range(int(input())):
-    N = 8
-    chess = [list(map(str, input())) for _ in range(N)]
-    ans = 'yes'
-    lcnt = 0
+def dfs(x,y,dx,dy):
+  global ans
+  nx = x+dx
+  ny = y+dy
 
-    for y in range(N):
-        for x in range(N):
-            if chess[y][x] == 'O':
-                check(x,y)
-                lcnt += 1
+  if 0<=nx<8 and 0<=ny<8:
+    if chess[ny][nx] == '.':
+      dfs(nx,ny,dx,dy)
+    else:
+      ans = 'no'
+      return
 
-    if lcnt != 8:
-        ans = 'no'
-    
-    print(f'#{t+1} {ans}')
+for T in range(int(input())):
+  chess = [list(map(str, input())) for _ in range(8)]
+  ans = 'yes'
+  cnt = 0
+
+  for y in range(8):
+    for x in range(8):
+      if chess[y][x] == 'O':
+        cnt += 1
+        for i in range(3):
+          dfs(x,y,dx[i],dy[i])
+
+  if cnt != 8:
+    ans = 'no'
+
+  print(f'#{T+1} {ans}')
