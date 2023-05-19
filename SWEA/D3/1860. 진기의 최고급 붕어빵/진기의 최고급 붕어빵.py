@@ -1,13 +1,14 @@
-for tc in range(1,int(input())+1):
-    N,M,K = map(int,input().split())
-    lst = sorted(list(map(int,input().split())))
+for T in range(int(input())):
+  N,M,K = map(int, input().split())
+  lst = sorted(list(map(int, input().split())))
+  ans = 'Possible'
 
-    ans = 'Possible'
-    cnt = 0
-    for t in lst:
-        cnt += 1
-        if (t//M)*K < cnt:
-            ans = 'Impossible'
-            break
-
-    print(f'#{tc} {ans}')
+  if lst[0] == 0:
+    ans = 'Impossible'
+    print(f'#{T+1} {ans}')
+  else:
+    for i in range(N):
+      if (lst[i]//M)*K-(i+1) < 0:
+        ans = 'Impossible'
+        break
+    print(f'#{T+1} {ans}')
