@@ -2,7 +2,7 @@ from copy import deepcopy
 al = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 
 def dfs(n,v,now):
-  global ans, res
+  global res
   v = deepcopy(v)
 
   if len(v) >= 26:
@@ -13,7 +13,6 @@ def dfs(n,v,now):
       else : break
     if ok == 26:
       if now not in res:
-        ans += 1
         res.append(now)
 
   if n >= N:
@@ -31,10 +30,8 @@ def dfs(n,v,now):
 for TC in range(int(input())):
   N = int(input())
   word = [input().rstrip() for _ in range(N)]
-  ans = 0
   res = []
 
   dfs(0,[],[])
-
   
-  print(f'#{TC+1} {ans}')
+  print(f'#{TC+1} {len(res)}')
