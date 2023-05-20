@@ -24,8 +24,6 @@ for T in range(int(input())):
   ans = 'NO'
 
   for y in range(N):
-    if ans == 0 and N-y < 5:
-      break
     for x in range(N):
       if arr[y][x] == 'o':
         dfs(x,y)
