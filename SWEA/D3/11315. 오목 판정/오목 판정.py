@@ -1,9 +1,8 @@
 dx = [1,1,0,-1]
-dy = [0,1,1,1]
+dy = [0,-1,-1,-1]
 
 def dfs(x,y):
   global ans
-
   for i in range(4):
     nx = x+dx[i]
     ny = y+dy[i]
@@ -20,12 +19,11 @@ def dfs(x,y):
 
 for T in range(int(input())):
   N = int(input())
-  arr = [list(map(str, input().rstrip())) for _ in range(N)]
+  arr = [list(input().rstrip()) for _ in range(N)]
   ans = 'NO'
 
   for y in range(N):
     for x in range(N):
       if arr[y][x] == 'o':
         dfs(x,y)
-
   print(f'#{T+1} {ans}')
