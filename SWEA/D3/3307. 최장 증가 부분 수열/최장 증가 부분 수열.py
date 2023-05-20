@@ -1,13 +1,13 @@
-for T in range(1,int(input())+1):
+for T in range(int(input())):
   N = int(input())
-  arr = [0] + list(map(int, input().split()))
+  lst = [0]+list(map(int, input().split()))
   dp = [0]*(N+1)
 
   for i in range(1,N+1):
     mx = 0
-    for j in range(0,i):
-      if arr[i] > arr[j]:
+    for j in range(i):
+      if lst[i] > lst[j]:
         mx = max(mx, dp[j])
     dp[i] = mx+1
 
-  print(f'#{T} {max(dp)}')
+  print(f'#{T+1} {max(dp)}')
